@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Ordering</title>
+    <link rel="stylesheet" href="pizza.css">
+</head>
+<body>
+    <div id="main">
+        <h1>Pizza Ordering Form</h1>
+        <form action="pizza.php" method="post">
+            <table>
+                <tr>
+                    <td>Number of Pizza: </td>
+                    <td><input type="number" name="numPizza" id="numPizza" required="required" value=""></td>
+                </tr>
+                <tr>
+                    <td>Pizza Type: </td>
+                    <td>
+                        <ul>
+                            <li><input type="radio" name="pizzaType" id="margherita" checked="checked" value="Margherita"><label for="margherita">Margherita - $14.50</label></li>
+                            <li><input type="radio" name="pizzaType" id="pepperoni" value="Pepperoni"><label for="pepperoni">Pepperoni - $12.50</label></li>
+                            <li><input type="radio" name="pizzaType" id="bbqChicken" value="BBQ Chicken"><label for="bbqChicken">BBQ Chicken - $13.50</label></li>
+                        </ul> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>Toppings (up to 3):</td>
+                    <td>
+                        <div id="checkboxgroup">
+                            <ul>
+                                <li><input type="checkbox" name="toppings[]" id="olives" value="Olives"><label for="olives">Olives</label></li>
+                                <li><input type="checkbox" name="toppings[]" id="cheese" value="Extra Cheese"><label for="cheese">Extra Cheese</label></li>
+                                <li><input type="checkbox" name="toppings[]" id="bacon" value="Bacon"><label for="bacon">Bacon</label></li>
+                                <li><input type="checkbox" name="toppings[]" id="mushroom" value="Mushroom"><label for="mushroom">Mushroom</label></li>
+                                <li><input type="checkbox" name="toppings[]" id="greenPepper" value="Green Pepper"><label for="greenPepper">Green Pepper</label></li>
+                                <li><input type="checkbox" name="toppings[]" id="onion" value="Onion"><label for="onion">Onion</label></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email Address: </td>
+                    <td><input type="email" name="email" id="email" required="required"></td>
+                </tr>
+            </table>
+            <div id="button-div">
+                <input type="submit" id="btn_submit" value="Order" class="buttons">
+                <input type="reset" value="Reset" class="buttons">
+            </div>
+        </form>
+    </div>
+    <script>
+        var checkboxgroup = document.getElementById('checkboxgroup').getElementsByTagName("input");
+            
+        var limit = 3;
+          
+        for (var i = 0; i < checkboxgroup.length; i++) {
+            checkboxgroup[i].onclick = function() {
+                var checkedcount = 0;
+                for (var i = 0; i < checkboxgroup.length; i++) {
+                    checkedcount += (checkboxgroup[i].checked) ? 1 : 0;
+                }
+                if (checkedcount > limit) {
+                    alert("You can select maximum of " + limit + " toppings.");
+                    this.checked = false;
+                }
+            }
+        }
+        document.getElementById('numPizza').addEventListener('change', ()=> {
+            if (document.getElementById('numPizza').value <= 0) {
+                alert("Number of Pizzas should be greater than 0");
+                document.getElementById('numPizza').value = "";
+            }
+            
+        });
+        
+    </script>
+</body>
+</html>
